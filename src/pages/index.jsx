@@ -34,10 +34,11 @@ ReactDOM.render(<Menu items={navItems} />, document.getElementById('menu'));
 fetch('/allUsers')
   .then(response => response.json())
   .then((data) => {
+    const users = data.map(user => [user.username]);
     ReactDOM.render(<Table
       border="1"
-      tableData={data.tableData}
-      tableHeaders={data.tableHeaders}
+      tableData={users}
+      tableHeaders={['Users']}
       caption="All Users"
       hasForm="False"
       formActions={formActions}
