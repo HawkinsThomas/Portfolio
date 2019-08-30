@@ -30,7 +30,7 @@ exports.register = (req, res) => {
               password: hash,
             });
             user.save()
-              .then(data => res.status(200).send(data))
+              .then(res.redirect('/'))
               .catch((err) => {
                 res.status(500).send({
                   message: err,
