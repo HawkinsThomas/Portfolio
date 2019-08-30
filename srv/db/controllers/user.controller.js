@@ -59,3 +59,10 @@ exports.login = (req, res) => {
       }
     });
 };
+
+exports.allUsers = (req, res) => {
+  User.find({}, (err, result) => {
+    if (err) res.status(500).send({ message: err });
+    res.json(result);
+  });
+};

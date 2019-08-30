@@ -49,12 +49,9 @@ mongoose.connect(dbConfig.url, {
 
 app.use(express.static(dist));
 app.use(authenticate);
-
 // routes for the app
 
 app.get('/', getHomePage);
-// app.get('/allUsers', getAllUsers);
-// app.post('/login', login);
 userRoutes(app);
 
 // set the app to listen on the port
