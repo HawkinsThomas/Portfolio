@@ -11,7 +11,7 @@ const { getHomePage } = require('./routes/home');
 const { getAllUsers } = require('./routes/allUsers');
 const { authenticate } = require('./middleware/authentication');
 const { login } = require('./routes/login');
-const { register } = require('./routes/register');
+const userRoutes = require('./routes/user.routes.js');
 
 const dist = path.resolve('dist');
 
@@ -40,7 +40,7 @@ app.use(authenticate);
 app.get('/', getHomePage);
 app.get('/allUsers', getAllUsers);
 app.post('/login', login);
-app.post('/register', register);
+userRoutes(app);
 
 // set the app to listen on the port
 app.listen(process.env.HTTP_PORT, () => {
