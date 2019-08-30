@@ -1,10 +1,12 @@
 const argon2 = require('argon2');
 const User = require('../models/user.model');
 
-function userExists(username) {
-  User.findOne({ username: username }, (err, result) => {
-    if (err) throw err;
-    else console.log(result);
+function doesUserExist(username) {
+  return new Promise((resolve, reject) => {
+    User.findOne({ username }, (err, result) => {
+      if (err) reject(err);
+      resolve(!!result);
+    });
   });
 }
 
@@ -14,20 +16,46 @@ exports.register = (req, res) => {
       message: 'username and password required',
     });
   }
-  userExists(req.body.username);
-  // create a new user
-  argon2.hash(req.body.password)
-    .then((hash) => {
-      const user = new User({
-        username: req.body.username,
-        password: hash,
-      });
-      user.save()
-        .then(data => console.log(data))
-        .catch((err) => {
-          res.status(500).send({
-            message: err,
-          });
+  doesUserExist(req.body.username)
+    .then((userExists) => {
+      if (userExists) {
+        res.status(400).send({
+          message: 'user already exists',
         });
+      } else {
+        argon2.hash(req.body.password)
+          .then((hash) => {
+            const user = new User({
+              username: req.body.username,
+              password: hash,
+            });
+            user.save()
+              .then(data => res.status(200).send(data))
+              .catch((err) => {
+                res.status(500).send({
+                  message: err,
+                });
+              });
+          });
+      }
+    });
+};
+
+exports.login = (req, res) => {
+  doesUserExist(req.body.username)
+    .then((userExists) => {
+      if (userExists) {
+        User.findOne({ username: req.body.username }, (err, user) => {
+          if (err) res.status(500).send({ message: 'Error logging in' });
+          else if (argon2.verify(user.password, req.body.password)) {
+            req.session.username = req.body.username;
+            res.redirect('/');
+          } else {
+            res.status(401).send({ message: 'username or password incorrect' });
+          }
+        });
+      } else {
+        res.status(401).send({ message: 'username or password incorrect' });
+      }
     });
 };
