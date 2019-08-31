@@ -20,7 +20,9 @@ const circle = (x, y, radius, colour, dx, dy) => {
       c.beginPath();
       c.arc(this.x, this.y, this.radius, 0, Math.PI * 2, false);
       c.strokeStyle = colour;
+      c.fillStyle = colour;
       c.stroke();
+      c.fill();
       return this;
     },
     detectBoundaries() {
@@ -40,12 +42,13 @@ const circle = (x, y, radius, colour, dx, dy) => {
   });
 };
 const circles = [];
+const colours = ['yellow', 'orange', 'black'];
 
 for (let i = 0; i < 100; i += 1) {
   const radius = 30;
   const spawnx = Math.random() * (innerWidth - radius * 2) + radius;
   const spawny = Math.random() * (innerHeight - radius * 2) + radius;
-  const circ = circle(spawnx, spawny, radius, '#aaaaaa', Math.random() - 0.5, Math.random() - 0.5);
+  const circ = circle(spawnx, spawny, radius, colours[i % 3], (Math.random() - 0.5) * 2, (Math.random() - 0.5) * 2);
   circles.push(circ);
 }
 
