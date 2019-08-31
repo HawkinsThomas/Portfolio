@@ -5,6 +5,7 @@ export default class Menu extends Component {
     super(props);
     this.state = {
       items: this.props.items,
+      user: this.props.user,
     };
   }
 
@@ -17,6 +18,7 @@ export default class Menu extends Component {
     return (
       <ul className="nav nav-pills">
         {items}
+        <Userinfo href="/" username={this.state.user} />
       </ul>
     );
   }
@@ -25,7 +27,15 @@ export default class Menu extends Component {
 function NavItem(props) {
   return (
     <li className="nav-item">
-      <a className={props.active ? 'nav-link active' : 'nav-link'} href={props.href}>{props.name}</a>
+      <a className={props.active ? 'nav-link active disabled' : 'nav-link'} href={props.href}>{props.name}</a>
+    </li>
+  );
+}
+
+function Userinfo(props) {
+  return (
+    <li className="nav-item">
+      <a className="nav-link disabled" href={props.href}>{props.username}</a>
     </li>
   );
 }

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Menu from 'components/Menu';
-import Table from 'components/Table';
 import 'css/bootstrap.min.css';
 
 const navItems = [
@@ -22,25 +21,26 @@ const navItems = [
   },
 ];
 
-const formActions = {
-  add: '/',
-  update: '/',
-  delete: '/',
-};
+const navItemsUser = [
+  {
+    name: 'Home',
+    isActive: true,
+    href: '/',
+  },
+  {
+    name: 'Logout',
+    isActive: false,
+    href: '/logout',
+  }
+]
 
-
-ReactDOM.render(<Menu items={navItems} />, document.getElementById('menu'));
-
-fetch('/allUsers')
+fetch('/activeUser')
   .then(response => response.json())
   .then((data) => {
-    const users = data.map(user => [user.username]);
-    ReactDOM.render(<Table
-      border="1"
-      tableData={users}
-      tableHeaders={['Users']}
-      caption="All Users"
-      hasForm="False"
-      formActions={formActions}
-    />, document.getElementById('users'));
+    if (!data){
+      ReactDOM.render(<Menu items={navItems} />, document.getElementById('menu'));
+    } else {
+      ReactDOM.render(<Menu items={navItemsUser} />, document.getElementById('menu'));
+    }
   });
+
