@@ -15,6 +15,7 @@ const circle = (x, y, radius, colour, dx, dy) => {
     radius,
     extraRadius: 0,
     colour,
+    defaultColour: 'lightgrey',
     dx,
     dy,
     mouseProximity: 0,
@@ -22,11 +23,14 @@ const circle = (x, y, radius, colour, dx, dy) => {
       this.getMouseProximity(mouse);
       this.updateRadius();
       c.beginPath();
+      if (this.extraRadius <= 1) {
+        c.fillStyle = this.defaultColour;
+      } else {
+        c.fillStyle = this.colour;
+      }
       c.arc(this.x, this.y, this.radius + this.extraRadius, 0, Math.PI * 2, false);
-      c.strokeStyle = colour;
-      c.fillStyle = colour;
-      c.stroke();
       c.fill();
+      c.beginPath();
       return this;
     },
     detectBoundaries() {
@@ -47,11 +51,14 @@ const circle = (x, y, radius, colour, dx, dy) => {
       this.mouseProximity = Math.sqrt(((this.x - mouse.x) ** 2) + ((this.y - mouse.y) ** 2));
     },
     updateRadius() {
-      const interactionRadius = 50;
+      const interactionRadius = 75;
       if (this.mouseProximity < interactionRadius) {
-        this.extraRadius = 50 * ((interactionRadius - this.mouseProximity) / interactionRadius);
-      } else {
-        this.extraRadius = 0;
+        const proximityRad = 50 * ((interactionRadius - this.mouseProximity) / interactionRadius);
+        if (proximityRad > this.extraRadius) {
+          this.extraRadius = proximityRad;
+        }
+      } else if (this.extraRadius > 0) {
+        this.extraRadius = this.extraRadius - 0.5;
       }
     },
   });
@@ -73,8 +80,8 @@ window.addEventListener('mousemove', (event) => {
 const circles = [];
 const colours = ['#E27D60', '#85DCBA', '#E8A87C', '#C38D9E', '#41B3A3'];
 
-for (let i = 0; i < 200; i += 1) {
-  const radius = 5;
+for (let i = 0; i < 500; i += 1) {
+  const radius = 3 + (4 * Math.random());
   const spawnx = Math.random() * (innerWidth - radius * 2) + radius;
   const spawny = Math.random() * (innerHeight - radius * 2) + radius;
   const spawndx = (Math.random() - 0.5) * 3;
