@@ -73,14 +73,13 @@ const mouse = {
   },
 };
 
-window.addEventListener('mousemove', (event) => {
+canvas.addEventListener('mousemove', (event) => {
   mouse.updatePosition(event);
 });
 
-window.addEventListener('touchmove', (event) => {
-  //event.preventDefault();
+canvas.addEventListener('touchmove', (event) => {
+  event.preventDefault();
   mouse.updatePosition({ x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY });
-  console.log(event);
 });
 
 const circles = [];
