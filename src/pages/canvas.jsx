@@ -78,7 +78,9 @@ window.addEventListener('mousemove', (event) => {
 });
 
 window.addEventListener('touchmove', (event) => {
-  mouse.updatePosition(event);
+  //event.preventDefault();
+  mouse.updatePosition({ x: event.changedTouches[0].clientX, y: event.changedTouches[0].clientY });
+  console.log(event);
 });
 
 const circles = [];
