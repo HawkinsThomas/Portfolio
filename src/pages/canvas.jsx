@@ -77,6 +77,10 @@ window.addEventListener('mousemove', (event) => {
   mouse.updatePosition(event);
 });
 
+window.addEventListener('touchmove', (event) => {
+  mouse.updatePosition(event);
+});
+
 const circles = [];
 const colours = ['#E27D60', '#85DCBA', '#E8A87C', '#C38D9E', '#41B3A3'];
 
