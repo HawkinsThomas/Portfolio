@@ -1,0 +1,110 @@
+.App {
+  margin: 1rem;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+html{
+  height:90%;
+}
+body{
+  height:90%;
+}
+main{
+  height: 100%;
+  width: 100%;
+}
+
+.result-column{
+  padding-right: 2px;
+  padding-left: 2px;
+}
+
+#results_row{
+padding-right:0;
+margin-right:0;
+}
+img{
+  width:100%;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+
+#logo{
+  width:100px;
+}
+
+footer {
+position: absolute;
+bottom: 0;
+background-color:black;
+width: 100%; 
+padding-top:1px;
+float:bottom;
+height:30px;
+}
+
+.footer a{
+float: left;
+}
+
+.btn {
+margin-top: 3px;
+margin-left: 1px;
+margin-right: 8px;
+margin-bottom: 0px;
+
+}
+
+
+#backtotop {
+display: none;
+position: fixed;
+bottom: 60px;
+right: 20px;
+z-index: 99;
+font-size: 18px;
+border: none;
+outline: none;
+background-color: red;
+color: white;
+cursor: pointer;
+padding: 15px;
+border-radius: 4px;
+}
+
+#backtotop:hover {
+background-color: #555;
+}
+
+#navlogo {
+width: 50px;
+padding-right: 10px;
+}
+
+#gift-navbar-hidden {
+display: none; 
+padding-top: 8px;
+}
+
+#gift-navbar {
+padding-top: 8px;
+}
+
+.sticky {
+/* display: block !important; */
+position: fixed;
+top: 0;
+width: 100%;
+z-index: 99;
+height: 55px;
+background-color: #cce3f0;
+}
+
+.navbtn{
+width: 30%;
+white-space: normal;
+}
+
+#navBarRow{
+height: 50px;
+}

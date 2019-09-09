@@ -43,6 +43,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.17.1",
     "express-session": "^1.16.2",
+    "file-loader": "^4.2.0",
     "mariadb": "^2.1.0",
     "mongoose": "^5.6.10",
     "react": "^16.8.6",
